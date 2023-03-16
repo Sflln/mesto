@@ -1,0 +1,19 @@
+.popup__window{
+  position: absolute;
+  width: 358px;
+  height: 330px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #FFFFFF;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  padding: 0 36px;
+}
+@media screen and (max-width: 534px){
+  .popup__window{
+    width: calc(238px + (358 - 238) * ((100vw - 320px) / (534 - 320)));
+    height: calc(322px + (330 - 322) * ((100vw - 320px) / (534 - 320)));
+    padding: 0 calc(22px + (36 - 22) * ((100vw - 320px) / (534 - 320)));
+  }
+}

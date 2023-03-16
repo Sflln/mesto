@@ -1,0 +1,18 @@
+.pole{
+  border: 0;
+  padding: 0;
+  border-bottom: 1px solid #000;
+  width: 358px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+}
+@media screen and (max-width: 534px){
+  .pole{
+    width: calc(238px + (358 - 238) * ((100vw - 320px) / (534 - 320)));
+  }
+}

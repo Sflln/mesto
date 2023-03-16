@@ -1,0 +1,19 @@
+.button__add{
+  background-color: rgba(0, 0, 0, 0);
+  padding: 0;
+  background-image: url("../../../images/add-plus.svg");
+  background-repeat : no-repeat;
+  background-size: 22px 22px;
+  background-position: center center;
+  border: 2px solid rgba(255, 255, 255, 1);
+  width: 150px;
+  height: 50px;
+}
+@media screen and (max-width: 750px){
+  .button__add{
+    width: 282px;
+  }
+}
+.button__add:hover{
+  opacity: 0.6;
+}

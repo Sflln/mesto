@@ -1,0 +1,27 @@
+.button__save{
+  background-color: #000;
+  width: 358px;
+  height: 50px;
+  color: #FFFFFF;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  margin-top: 18px;
+  border: 0;
+  padding: 0;
+}
+@media screen and (max-width: 534px){
+  .button__save{
+    width: calc(238px + (358 - 238) * ((100vw - 320px) / (534 - 320)));
+    height: calc(46px + (50 - 46) * ((100vw - 320px) / (534 - 320)));
+    font-size: calc(14px + (18 - 14) * ((100vw - 320px) / (534 - 320)));
+    line-height: calc(17px + (22 - 17) * ((100vw - 320px) / (534 - 320)));
+    margin-top: calc(15px + (18 - 15) * ((100vw - 320px) / (534 - 320)));
+  }
+}
+.button__save:hover{
+  opacity: 0.8;
+}
