@@ -14,4 +14,4 @@
 * Js;
 
 
-[Ссылка на проект](https://sflln.github.io/russian-travel/)
+[Ссылка на проект](https://sflln.github.io/)
