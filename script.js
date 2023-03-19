@@ -1,12 +1,12 @@
-let openPopup = document.querySelector('.button__edit');// Кнопка открытия редактирования
+let openPopup = document.querySelector('.profile__button-edit');// Кнопка открытия редактирования
 let popupwindow = document.querySelector('.popup');
-let closePopup = document.querySelector('.button__close');// Кнопка закртытия редактирования
-let nameInput = document.querySelector('.profile__info_name');
-let jobInput = document.querySelector('.profile__info_job');
-let inputName = document.querySelector('.popup__form_name');
-let inputJob = document.querySelector('.popup__form_job');
-let buttonSubmit = document.querySelector('.button__save');
-let formElement = document.querySelector('.form__sub');
+let closePopup = document.querySelector('.popup__button-close');// Кнопка закртытия редактирования
+let nameInput = document.querySelector('.profile__info-name');
+let jobInput = document.querySelector('.profile__info-job');
+let inputName = document.querySelector('.popup__form-name');
+let inputJob = document.querySelector('.popup__form-job');
+let buttonSubmit = document.querySelector('.popup__button-save');
+let formElement = document.querySelector('.popup__form');
 
 openPopup.addEventListener('click',() => { // Вешаем обработчик на кнопку открытия
   popupwindow.classList.add('popup_opened'); // Добавляем класс к попапу

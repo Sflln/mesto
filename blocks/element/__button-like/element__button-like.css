@@ -1,4 +1,4 @@
-.button__like{
+.element__button-like{
   background-color: rgba(0,0,0,0);
   padding: 0;
   border: 0;
@@ -9,6 +9,6 @@
   background-size: 22px 19px;
   background-position: center center;
 }
-.button__like:hover{
+.element__button-like:hover{
   opacity: 0.5;
 }

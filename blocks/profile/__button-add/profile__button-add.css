@@ -1,4 +1,4 @@
-.button__add{
+.profile__button-add{
   background-color: rgba(0, 0, 0, 0);
   padding: 0;
   background-image: url("../../../images/add-plus.svg");
@@ -10,10 +10,10 @@
   height: 50px;
 }
 @media screen and (max-width: 750px){
-  .button__add{
+  .profile__button-add{
     width: 282px;
   }
 }
-.button__add:hover{
+.profile__button-add:hover{
   opacity: 0.6;
 }
