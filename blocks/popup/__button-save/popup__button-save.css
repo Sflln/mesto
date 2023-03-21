@@ -23,7 +23,7 @@
     font-size: calc(14px + (18 - 14) * ((100vw - 320px) / (534 - 320)));
     line-height: calc(17px + (22 - 17) * ((100vw - 320px) / (534 - 320)));
     margin-top: calc(15px + (18 - 15) * ((100vw - 320px) / (534 - 320)));
-    margin-bottom: calc(23px + (35 - 23) * ((100vw - 320px) / (534 - 320)));;
+    margin-bottom: calc(23px + (35 - 23) * ((100vw - 320px) / (534 - 320)));
   }
 }
 .popup__button-save:hover{
