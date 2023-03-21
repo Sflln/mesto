@@ -3,9 +3,8 @@ let popupwindow = document.querySelector('.popup');
 let closePopup = document.querySelector('.popup__button-close');// Кнопка закртытия редактирования
 let nameInput = document.querySelector('.profile__info-name');
 let jobInput = document.querySelector('.profile__info-job');
-let inputName = document.querySelector('.popup__form-name');
-let inputJob = document.querySelector('.popup__form-job');
-let buttonSubmit = document.querySelector('.popup__button-save');
+let inputName = document.querySelector('.popup__input_form_name');
+let inputJob = document.querySelector('.popup__input_form_job');
 let formElement = document.querySelector('.popup__form');
 
 openPopup.addEventListener('click',() => { // Вешаем обработчик на кнопку открытия
@@ -14,16 +13,18 @@ openPopup.addEventListener('click',() => { // Вешаем обработчик 
    inputJob.value = jobInput.textContent;
 
 });
-
+function popupCloseFunction (){
+  popupwindow.classList.remove('popup_opened');
+}
 closePopup.addEventListener('click',() => { // Вешаем обработчик на крестик
-  popupwindow.classList.remove('popup_opened'); // Убираем активный класс
+  popupCloseFunction ();// Убираем активный класс
 });
 
 function handleFormSubmit (evt) {
   evt.preventDefault();
   nameInput.textContent = inputName.value;
   jobInput.textContent = inputJob.value;
-  popupwindow.classList.remove('popup_opened');
+  popupCloseFunction ();
 }
 
 formElement.addEventListener('submit', handleFormSubmit);

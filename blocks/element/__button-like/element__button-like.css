@@ -8,6 +8,7 @@
   background-repeat : no-repeat;
   background-size: 22px 19px;
   background-position: center center;
+  cursor: pointer;
 }
 .element__button-like:hover{
   opacity: 0.5;

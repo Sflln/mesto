@@ -10,7 +10,6 @@
   .profile{
     flex-direction: column;
     justify-items: center;
-    align-items: center;
     align-content: space-between;
     margin-bottom: calc(36px + (50 - 36) * ((100vw - 320px) / (880 - 320)));
   }

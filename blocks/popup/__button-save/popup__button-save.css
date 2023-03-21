@@ -3,7 +3,7 @@
   width: 358px;
   height: 50px;
   color: #FFFFFF;
-  font-family: 'Inter';
+  font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -12,6 +12,9 @@
   margin-top: 18px;
   border: 0;
   padding: 0;
+  cursor: pointer;
+  border-radius: 2px;
+  margin-bottom: 35px;
 }
 @media screen and (max-width: 534px){
   .popup__button-save{
@@ -20,6 +23,7 @@
     font-size: calc(14px + (18 - 14) * ((100vw - 320px) / (534 - 320)));
     line-height: calc(17px + (22 - 17) * ((100vw - 320px) / (534 - 320)));
     margin-top: calc(15px + (18 - 15) * ((100vw - 320px) / (534 - 320)));
+    margin-bottom: calc(23px + (35 - 23) * ((100vw - 320px) / (534 - 320)));;
   }
 }
 .popup__button-save:hover{
