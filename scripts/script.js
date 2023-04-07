@@ -1,5 +1,5 @@
 let openPopup = document.querySelector('.profile__button-edit'); // Кнопка открытия редактирования
-let popupwindow = document.querySelector('.popup__type_edit');
+let popupwindow = document.querySelector('.popup__type-edit');
 let closePopup = popupwindow.querySelector('.popup__button-close'); // Кнопка закртытия редактирования
 let nameInput = document.querySelector('.profile__info-name');
 let jobInput = document.querySelector('.profile__info-job');
@@ -7,14 +7,14 @@ let inputName = document.querySelector('.popup__input_form_name');
 let inputJob = document.querySelector('.popup__input_form_job');
 let formElement = document.querySelector('.popup__form_edit');
 
-let popupCards = document.querySelector('.popup__type_cards'); //Попап с добавлением новой карточки
+let popupCards = document.querySelector('.popup__type-cards'); //Попап с добавлением новой карточки
 let buttonPlus = document.querySelector('.profile__button-add'); //Кнопка плюс
 let buttonClosePopCards = popupCards.querySelector('.popup__button-close');
 let formCards = document.querySelector('.popup__form_cards');
 let nameCard = document.querySelector('.popup__input_form_title');
 let linkCard = document.querySelector('.popup__input_form_link');
 
-let popupImg = document.querySelector('.popup__type_img');
+let popupImg = document.querySelector('.popup__type-img');
 let popupImgSrc = document.querySelector('.popup__img');
 let popupImgText = document.querySelector('.popup__text');
 let buttonCloseImg = popupImg.querySelector('.popup__button-close_img');
