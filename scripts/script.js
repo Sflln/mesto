@@ -51,7 +51,7 @@ const initialCards = [
 ];
 
 for (let i = 0; i < initialCards.length; i++) {
-  createCard(initialCards[i].link, initialCards[i].name);
+  renderCard(initialCards[i].link, initialCards[i].name);
 } //Отрисовываем 6 карточек из коробки Js
 
 function openPopup(popup) {
@@ -72,6 +72,9 @@ buttonAddCardPopup.addEventListener("click", () => {
   linkCard.value = "";
   nameCard.value = "";
 });
+function renderCard(link, text){
+  cardsContainer.prepend(createCard(link, text));
+}
 
 function createCard(link, text) {
   const userElement = cardTemplate.querySelector(".element").cloneNode(true);
@@ -79,7 +82,7 @@ function createCard(link, text) {
   imageOnCard.src = link;
   userElement.querySelector(".element__title").textContent = text;
   imageOnCard.alt = text;
-  cardsContainer.prepend(userElement);
+  
   //Клонируем заготовку, вставляем нужные данные и добавляем в разметку
   //Ниже вешаем обработчики для кнопок и картинок
   userElement
@@ -97,13 +100,15 @@ function createCard(link, text) {
     popupImage.src = evt.target.src;
     popupImgText.textContent = evt.target.alt;
   });
+
+  return userElement;
   //Отслеживаем на какую картинку нажали, открываем попап, и собираем данные с карточки где стояла картинка
 }
 
 function submitCards(evt) {
   //функция которая добавляет карточку на страницу с пользовательскими данными
   evt.preventDefault();
-  createCard(linkCard.value, nameCard.value);
+  renderCard(linkCard.value, nameCard.value);
   closePopup(popupCards); //ЧТО ТО СДЕЛАЛА
 }
 
