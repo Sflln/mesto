@@ -77,31 +77,32 @@ function renderCard(link, text){
 }
 
 function createCard(link, text) {
-  const userElement = cardTemplate.querySelector(".element").cloneNode(true);
-  const imageOnCard = userElement.querySelector(".element__img");
+  const cardElement = cardTemplate.querySelector(".element").cloneNode(true);
+  const imageOnCard = cardElement.querySelector(".element__img");
   imageOnCard.src = link;
-  userElement.querySelector(".element__title").textContent = text;
+  cardElement.querySelector(".element__title").textContent = text;
   imageOnCard.alt = text;
   
   //Клонируем заготовку, вставляем нужные данные и добавляем в разметку
   //Ниже вешаем обработчики для кнопок и картинок
-  userElement
+  cardElement
     .querySelector(".element__button-like")
     .addEventListener("click", function (evt) {
       evt.target.classList.toggle("element__button-like_active");
     }); //Для лайков добавляем или убираем класс, который меняет картинку
-  userElement
+    cardElement
     .querySelector(".element__button-delete")
     .addEventListener("click", function (evt) {
       evt.target.closest(".element").remove();
     }); //Эта кнопка удаляет Родителя
   imageOnCard.addEventListener("click", function (evt) {
     openPopup(popupWithImage);
+    popupImage.alt = evt.target.alt;
     popupImage.src = evt.target.src;
     popupImgText.textContent = evt.target.alt;
   });
 
-  return userElement;
+  return cardElement;
   //Отслеживаем на какую картинку нажали, открываем попап, и собираем данные с карточки где стояла картинка
 }
 
