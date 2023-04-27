@@ -1,6 +1,6 @@
 const buttonOpenEditProfile = document.querySelector(".profile__button-edit"); // Кнопка открытия редактирования профиля
 const popupEditProfile = document.querySelector(".popup_type-edit");
-const buttonclosePopupEdit = popupEditProfile.querySelector(".popup__button-close"); // Кнопка закртытия редактирования
+const buttonClosePopupEdit = popupEditProfile.querySelector(".popup__button-close"); // Кнопка закртытия редактирования
 const profileName = document.querySelector(".profile__info-name");
 const profileJob = document.querySelector(".profile__info-job");
 const inputName = document.querySelector(".popup__input_form_name");
@@ -20,45 +20,21 @@ const popupImgText = document.querySelector(".popup__text");
 const buttonCloseImg = popupWithImage.querySelector(".popup__button-close_img");
 const cardTemplate = document.querySelector("#card").content;
 const cardsContainer = document.querySelector(".elements");
-
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
-
-for (let i = 0; i < initialCards.length; i++) {
-  renderCard(initialCards[i].link, initialCards[i].name);
-} //Отрисовываем 6 карточек из коробки Js
+const popupElements = document.querySelectorAll('.popup');
 
 function openPopup(popup) {
   //Функция открытия попапа с аргументом
-  popup.classList.remove("animation");
+  // popup.classList.remove("animation");
   popup.classList.add("popup_opened");
   document.addEventListener('keydown', closePopupEsc);
-  closePopupOverlay(popup);
-  setEventListeners(popup, classListForm);
+}
+
+function closePopup(popup) {
+  //Функция закрытия попапа с аргументом
+  // popup.classList.add("animation");
+  popup.classList.remove("popup_opened");
+  document.removeEventListener('keydown', closePopupEsc);
+  
 }
 
 function closePopupEsc(evt){
@@ -68,20 +44,40 @@ function closePopupEsc(evt){
   }
 }
 
-function closePopupOverlay(popup){
-  popup.addEventListener('mousedown', (evt) => {
-  if (evt.target.classList.contains("popup__container")) {
-    closePopup(popup);
-  }
+popupElements.forEach( popupElement => {
+  popupElement.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains("popup__container")) {
+      closePopup(popupElement);
+    }
+  });
 });
+
+buttonOpenEditProfile.addEventListener("click", () => {
+  // Вешаем обработчик на кнопку открытия
+  openPopup(popupEditProfile);
+  inputName.value = profileName.textContent;
+  inputJob.value = profileJob.textContent;
+  hideInputError(popupEditProfile, inputName, classListForm);
+  hideInputError(popupEditProfile, inputJob, classListForm);
+  const buttonSaveCard = popupEditProfile.querySelector(".popup__button-save");
+  toggleButtonState(popupEditProfile, buttonSaveCard, parametrs);
+});
+
+buttonClosePopupEdit.addEventListener("click", () => {
+  // Вешаем обработчик на крестик
+  closePopup(popupEditProfile); // Убираем активный класс
+});
+
+function handleProfileSubmit(evt) {
+  evt.preventDefault();
+  profileName.textContent = inputName.value;
+  profileJob.textContent = inputJob.value;
+  closePopup(popupEditProfile);
 }
 
-function closePopup(popup) {
-  //Функция закрытия попапа с аргументом
-  popup.classList.remove("popup_opened");
-  popup.classList.add("animation");
-  document.removeEventListener('keydown', closePopupEsc);
-}
+for (let i = 0; i < initialCards.length; i++) {
+  renderCard(initialCards[i].link, initialCards[i].name);
+} //Отрисовываем 6 карточек из коробки Js
 
 buttonAddCardPopup.addEventListener("click", () => {
   // Кнопка открытия попапа с добавлением новой карточки
@@ -90,8 +86,10 @@ buttonAddCardPopup.addEventListener("click", () => {
   nameCard.value = "";
   hideInputError(popupCards, linkCard, classListForm);
   hideInputError(popupCards, nameCard, classListForm);
-  setEventListeners(popupCards, classListForm);
+  const buttonSaveCard = popupCards.querySelector(".popup__button-save");
+  toggleButtonState(popupCards, buttonSaveCard, parametrs);
 });
+
 function renderCard(link, text){
   cardsContainer.prepend(createCard(link, text));
 }
@@ -102,7 +100,6 @@ function createCard(link, text) {
   imageOnCard.src = link;
   cardElement.querySelector(".element__title").textContent = text;
   imageOnCard.alt = text;
-  
   //Клонируем заготовку, вставляем нужные данные и добавляем в разметку
   //Ниже вешаем обработчики для кнопок и картинок
   cardElement
@@ -126,7 +123,7 @@ function createCard(link, text) {
   //Отслеживаем на какую картинку нажали, открываем попап, и собираем данные с карточки где стояла картинка
 }
 
-function submitCards(evt) {
+function handleCardFormSubmit(evt) {
   //функция которая добавляет карточку на страницу с пользовательскими данными
   evt.preventDefault();
   renderCard(linkCard.value, nameCard.value);
@@ -138,32 +135,10 @@ buttonClosePopupCards.addEventListener("click", () => {
   closePopup(popupCards);
 });
 
-buttonOpenEditProfile.addEventListener("click", () => {
-  // Вешаем обработчик на кнопку открытия
-  openPopup(popupEditProfile);
-  inputName.value = profileName.textContent;
-  inputJob.value = profileJob.textContent;
-  hideInputError(popupEditProfile, inputName, classListForm);
-  hideInputError(popupEditProfile, inputJob, classListForm);
-  setEventListeners(popupEditProfile, classListForm);
-});
-
-buttonclosePopupEdit.addEventListener("click", () => {
-  // Вешаем обработчик на крестик
-  closePopup(popupEditProfile); // Убираем активный класс
-});
-
-function handleProfileSubmit(evt) {
-  evt.preventDefault();
-  profileName.textContent = inputName.value;
-  profileJob.textContent = inputJob.value;
-  closePopup(popupEditProfile);
-}
-
 buttonCloseImg.addEventListener("click", () => {
   // Вешаем обработчик на крестик
   closePopup(popupWithImage); // Убираем активный класс
 });
 
 formProfile.addEventListener("submit", handleProfileSubmit);
-formCard.addEventListener("submit", submitCards);
+formCard.addEventListener("submit", handleCardFormSubmit);

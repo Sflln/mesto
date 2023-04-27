@@ -37,6 +37,7 @@ const hasInvalidInput = (inputList) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(parametrs.inputErrorClass);
     errorElement.textContent = errorMessage;
+    errorElement.title = errorMessage;
     errorElement.classList.add(parametrs.errorClass);
   };
   

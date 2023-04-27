@@ -66,16 +66,14 @@
       <div class="popup popup_type-cards">
         <div class="popup__container">
           <button class="popup__button-close" type="button" aria-label="Закрыть окно"></button>
-          <div class="popup__window">
             <h2 class="popup__title">Новое место</h2>
             <form class="popup__form popup__form_cards" name="formCards" novalidate>
-            <input id="title-input" type="text" minlength="2" maxlength="30" placeholder="Название" class="popup__input popup__input_form_title" value="" name="title" required>
-            <span class="title-input-error popup__input-error"></span>
-            <input id="link-input" type="url" placeholder="Ссылка на картинку" class="popup__input popup__input_form_link" value="" name="link" required>
-            <span class="link-input-error popup__input-error"></span>
-            <button type="submit" class="popup__button-save">Создать</button>
-          </form>
-          </div>
+              <input id="title-input" type="text" minlength="2" maxlength="30" placeholder="Название" class="popup__input popup__input_form_title" value="" name="title" required>
+              <span class="title-input-error popup__input-error" title=""></span>
+              <input id="link-input" type="url" placeholder="Ссылка на картинку" class="popup__input popup__input_form_link" value="" name="link" required>
+              <span class="link-input-error popup__input-error"></span>
+              <button type="submit" class="popup__button-save">Создать</button>
+            </form>
         </div>
       </div>
 
@@ -87,6 +85,7 @@
         </div>
       </div>
     </div>
+    <script src="scripts/cards.js"></script>
     <script src="scripts/script.js"></script>
     <script src="scripts/validate.js"></script>
   </body>
