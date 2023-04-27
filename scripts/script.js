@@ -1,8 +1,6 @@
 const buttonOpenEditProfile = document.querySelector(".profile__button-edit"); // Кнопка открытия редактирования профиля
 const popupEditProfile = document.querySelector(".popup_type-edit");
-const buttonclosePopupEdit = popupEditProfile.querySelector(
-  ".popup__button-close"
-); // Кнопка закртытия редактирования
+const buttonclosePopupEdit = popupEditProfile.querySelector(".popup__button-close"); // Кнопка закртытия редактирования
 const profileName = document.querySelector(".profile__info-name");
 const profileJob = document.querySelector(".profile__info-job");
 const inputName = document.querySelector(".popup__input_form_name");
@@ -56,14 +54,33 @@ for (let i = 0; i < initialCards.length; i++) {
 
 function openPopup(popup) {
   //Функция открытия попапа с аргументом
-  popup.classList.add("popup_opened");
   popup.classList.remove("animation");
+  popup.classList.add("popup_opened");
+  document.addEventListener('keydown', closePopupEsc);
+  closePopupOverlay(popup);
+  setEventListeners(popup, classListForm);
+}
+
+function closePopupEsc(evt){
+  if (evt.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
+  }
+}
+
+function closePopupOverlay(popup){
+  popup.addEventListener('mousedown', (evt) => {
+  if (evt.target.classList.contains("popup__container")) {
+    closePopup(popup);
+  }
+});
 }
 
 function closePopup(popup) {
   //Функция закрытия попапа с аргументом
   popup.classList.remove("popup_opened");
   popup.classList.add("animation");
+  document.removeEventListener('keydown', closePopupEsc);
 }
 
 buttonAddCardPopup.addEventListener("click", () => {
@@ -71,6 +88,9 @@ buttonAddCardPopup.addEventListener("click", () => {
   openPopup(popupCards);
   linkCard.value = "";
   nameCard.value = "";
+  hideInputError(popupCards, linkCard, classListForm);
+  hideInputError(popupCards, nameCard, classListForm);
+  setEventListeners(popupCards, classListForm);
 });
 function renderCard(link, text){
   cardsContainer.prepend(createCard(link, text));
@@ -123,6 +143,9 @@ buttonOpenEditProfile.addEventListener("click", () => {
   openPopup(popupEditProfile);
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
+  hideInputError(popupEditProfile, inputName, classListForm);
+  hideInputError(popupEditProfile, inputJob, classListForm);
+  setEventListeners(popupEditProfile, classListForm);
 });
 
 buttonclosePopupEdit.addEventListener("click", () => {
