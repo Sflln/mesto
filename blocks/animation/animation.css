@@ -1,9 +1,0 @@
-.animation{
-  animation: fadeIn 1s;
-}
-@keyframes fadeIn{
-  from { opacity: 1;
-  visibility: visible; }
-  to { opacity: 0;
-    visibility: hidden;}
-}

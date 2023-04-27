@@ -1,6 +1,8 @@
 const buttonOpenEditProfile = document.querySelector(".profile__button-edit"); // Кнопка открытия редактирования профиля
 const popupEditProfile = document.querySelector(".popup_type-edit");
-const buttonClosePopupEdit = popupEditProfile.querySelector(".popup__button-close"); // Кнопка закртытия редактирования
+const buttonClosePopupEdit = popupEditProfile.querySelector(
+  ".popup__button-close"
+); // Кнопка закртытия редактирования
 const profileName = document.querySelector(".profile__info-name");
 const profileJob = document.querySelector(".profile__info-job");
 const inputName = document.querySelector(".popup__input_form_name");
@@ -20,33 +22,30 @@ const popupImgText = document.querySelector(".popup__text");
 const buttonCloseImg = popupWithImage.querySelector(".popup__button-close_img");
 const cardTemplate = document.querySelector("#card").content;
 const cardsContainer = document.querySelector(".elements");
-const popupElements = document.querySelectorAll('.popup');
+const popupElements = document.querySelectorAll(".popup");
 
 function openPopup(popup) {
   //Функция открытия попапа с аргументом
-  // popup.classList.remove("animation");
   popup.classList.add("popup_opened");
-  document.addEventListener('keydown', closePopupEsc);
+  document.addEventListener("keydown", closePopupEsc);
 }
 
 function closePopup(popup) {
   //Функция закрытия попапа с аргументом
-  // popup.classList.add("animation");
   popup.classList.remove("popup_opened");
-  document.removeEventListener('keydown', closePopupEsc);
-  
+  document.removeEventListener("keydown", closePopupEsc);
 }
 
-function closePopupEsc(evt){
-  if (evt.key === 'Escape') {
-    const popupOpened = document.querySelector('.popup_opened');
+function closePopupEsc(evt) {
+  if (evt.key === "Escape") {
+    const popupOpened = document.querySelector(".popup_opened");
     closePopup(popupOpened);
   }
 }
 
-popupElements.forEach( popupElement => {
-  popupElement.addEventListener('mousedown', (evt) => {
-    if (evt.target.classList.contains("popup__container")) {
+popupElements.forEach((popupElement) => {
+  popupElement.addEventListener("mousedown", (evt) => {
+    if (evt.target.classList.contains("popup_opened")) {
       closePopup(popupElement);
     }
   });
@@ -60,7 +59,10 @@ buttonOpenEditProfile.addEventListener("click", () => {
   hideInputError(popupEditProfile, inputName, classListForm);
   hideInputError(popupEditProfile, inputJob, classListForm);
   const buttonSaveCard = popupEditProfile.querySelector(".popup__button-save");
-  toggleButtonState(popupEditProfile, buttonSaveCard, parametrs);
+  const inputList = Array.from(
+    popupEditProfile.querySelectorAll(classListForm.inputSelector)
+  );
+  toggleButtonState(inputList, buttonSaveCard, classListForm);
 });
 
 buttonClosePopupEdit.addEventListener("click", () => {
@@ -87,10 +89,13 @@ buttonAddCardPopup.addEventListener("click", () => {
   hideInputError(popupCards, linkCard, classListForm);
   hideInputError(popupCards, nameCard, classListForm);
   const buttonSaveCard = popupCards.querySelector(".popup__button-save");
-  toggleButtonState(popupCards, buttonSaveCard, parametrs);
+  const inputList = Array.from(
+    popupCards.querySelectorAll(classListForm.inputSelector)
+  );
+  toggleButtonState(inputList, buttonSaveCard, classListForm);
 });
 
-function renderCard(link, text){
+function renderCard(link, text) {
   cardsContainer.prepend(createCard(link, text));
 }
 
@@ -107,7 +112,7 @@ function createCard(link, text) {
     .addEventListener("click", function (evt) {
       evt.target.classList.toggle("element__button-like_active");
     }); //Для лайков добавляем или убираем класс, который меняет картинку
-    cardElement
+  cardElement
     .querySelector(".element__button-delete")
     .addEventListener("click", function (evt) {
       evt.target.closest(".element").remove();
