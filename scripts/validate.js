@@ -51,7 +51,6 @@ const hideInputError = (formElement, inputElement, parametrs) => {
 // Функция, которая проверяет валидность поля
 const isValid = (formElement, inputElement, parametrs) => {
   if (!inputElement.validity.valid) {
-    console.log(inputElement.value);
     // Если поле не проходит валидацию, покажем ошибку
     showInputError(
       formElement,
@@ -62,7 +61,6 @@ const isValid = (formElement, inputElement, parametrs) => {
   } else {
     // Если проходит, скроем
     hideInputError(formElement, inputElement, parametrs);
-    console.log(inputElement.value);
   }
 };
 
@@ -82,7 +80,6 @@ const setEventListeners = (formElement, parametrs) => {
     inputElement.addEventListener("input", () => {
       // Внутри колбэка вызовем isValid,
       // передав ей форму и проверяемый элемент
-      console.log(inputElement.value);
       isValid(formElement, inputElement, parametrs);
       toggleButtonState(inputList, buttonElement, parametrs);
     });

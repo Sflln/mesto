@@ -23,6 +23,8 @@ const buttonCloseImg = popupWithImage.querySelector(".popup__button-close_img");
 const cardTemplate = document.querySelector("#card").content;
 const cardsContainer = document.querySelector(".elements");
 const popupElements = document.querySelectorAll(".popup");
+const buttonSaveProfile = popupEditProfile.querySelector(".popup__button-save");
+const buttonSaveCard = popupCards.querySelector(".popup__button-save");
 
 function openPopup(popup) {
   //Функция открытия попапа с аргументом
@@ -58,11 +60,10 @@ buttonOpenEditProfile.addEventListener("click", () => {
   inputJob.value = profileJob.textContent;
   hideInputError(popupEditProfile, inputName, classListForm);
   hideInputError(popupEditProfile, inputJob, classListForm);
-  const buttonSaveCard = popupEditProfile.querySelector(".popup__button-save");
   const inputList = Array.from(
     popupEditProfile.querySelectorAll(classListForm.inputSelector)
   );
-  toggleButtonState(inputList, buttonSaveCard, classListForm);
+  toggleButtonState(inputList, buttonSaveProfile, classListForm);
 });
 
 buttonClosePopupEdit.addEventListener("click", () => {
@@ -88,7 +89,6 @@ buttonAddCardPopup.addEventListener("click", () => {
   nameCard.value = "";
   hideInputError(popupCards, linkCard, classListForm);
   hideInputError(popupCards, nameCard, classListForm);
-  const buttonSaveCard = popupCards.querySelector(".popup__button-save");
   const inputList = Array.from(
     popupCards.querySelectorAll(classListForm.inputSelector)
   );
