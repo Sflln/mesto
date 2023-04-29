@@ -25,6 +25,12 @@ const cardsContainer = document.querySelector(".elements");
 const popupElements = document.querySelectorAll(".popup");
 const buttonSaveProfile = popupEditProfile.querySelector(".popup__button-save");
 const buttonSaveCard = popupCards.querySelector(".popup__button-save");
+const inputListProfile = Array.from(
+  popupEditProfile.querySelectorAll(".popup__input")
+);
+const inputListCards = Array.from(
+  popupCards.querySelectorAll(".popup__input")
+);
 
 function openPopup(popup) {
   //Функция открытия попапа с аргументом
@@ -60,10 +66,7 @@ buttonOpenEditProfile.addEventListener("click", () => {
   inputJob.value = profileJob.textContent;
   hideInputError(popupEditProfile, inputName, classListForm);
   hideInputError(popupEditProfile, inputJob, classListForm);
-  const inputList = Array.from(
-    popupEditProfile.querySelectorAll(classListForm.inputSelector)
-  );
-  toggleButtonState(inputList, buttonSaveProfile, classListForm);
+  toggleButtonState(inputListProfile, buttonSaveProfile, classListForm);
 });
 
 buttonClosePopupEdit.addEventListener("click", () => {
@@ -89,10 +92,7 @@ buttonAddCardPopup.addEventListener("click", () => {
   nameCard.value = "";
   hideInputError(popupCards, linkCard, classListForm);
   hideInputError(popupCards, nameCard, classListForm);
-  const inputList = Array.from(
-    popupCards.querySelectorAll(classListForm.inputSelector)
-  );
-  toggleButtonState(inputList, buttonSaveCard, classListForm);
+  toggleButtonState(inputListCards, buttonSaveCard, classListForm);
 });
 
 function renderCard(link, text) {
