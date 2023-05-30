@@ -1,8 +1,6 @@
 const buttonOpenEditProfile = document.querySelector(".profile__button-edit"); // Кнопка открытия редактирования профиля
 const popupEditProfile = document.querySelector(".popup_type-edit");
-const buttonClosePopupEdit = popupEditProfile.querySelector(
-  ".popup__button-close"
-); // Кнопка закртытия редактирования
+const buttonClosePopupEdit = popupEditProfile.querySelector(".popup__button-close");
 const profileName = document.querySelector(".profile__info-name");
 const profileJob = document.querySelector(".profile__info-job");
 const inputName = document.querySelector(".popup__input_form_name");
@@ -25,25 +23,45 @@ const cardsContainer = document.querySelector(".elements");
 const popupElements = document.querySelectorAll(".popup");
 const buttonSaveProfile = popupEditProfile.querySelector(".popup__button-save");
 const buttonSaveCard = popupCards.querySelector(".popup__button-save");
-const inputListProfile = Array.from(
-  popupEditProfile.querySelectorAll(".popup__input")
-);
-const inputListCards = Array.from(
-  popupCards.querySelectorAll(".popup__input")
-);
 
+import { initialCards } from "./cards.js";
+import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
+
+const classListForm = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button-save",
+  inactiveButtonClass: "popup__button-save_inactive",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__input-error_active",
+};
+
+// функция которая очищает поля от ошибок и делает кнопку не активной
+function hideInputError(formElement, inputElement, parametrs) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove(parametrs.inputErrorClass);
+  errorElement.classList.remove(parametrs.errorClass);
+  errorElement.textContent = "";
+  const buttonElement = formElement.querySelector(
+    parametrs.submitButtonSelector
+  );
+  buttonElement.classList.add(parametrs.inactiveButtonClass);
+}
+
+//Функция открытия попапа с аргументом
 function openPopup(popup) {
-  //Функция открытия попапа с аргументом
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", closePopupEsc);
 }
 
+//Функция закрытия попапа с аргументом
 function closePopup(popup) {
-  //Функция закрытия попапа с аргументом
   popup.classList.remove("popup_opened");
   document.removeEventListener("keydown", closePopupEsc);
 }
 
+//Функция закрытия попапа с по кнопке esc
 function closePopupEsc(evt) {
   if (evt.key === "Escape") {
     const popupOpened = document.querySelector(".popup_opened");
@@ -51,6 +69,7 @@ function closePopupEsc(evt) {
   }
 }
 
+//Функция закрытия попапа с по нажатию на оверлей
 popupElements.forEach((popupElement) => {
   popupElement.addEventListener("mousedown", (evt) => {
     if (evt.target.classList.contains("popup_opened")) {
@@ -59,21 +78,7 @@ popupElements.forEach((popupElement) => {
   });
 });
 
-buttonOpenEditProfile.addEventListener("click", () => {
-  // Вешаем обработчик на кнопку открытия
-  openPopup(popupEditProfile);
-  inputName.value = profileName.textContent;
-  inputJob.value = profileJob.textContent;
-  hideInputError(popupEditProfile, inputName, classListForm);
-  hideInputError(popupEditProfile, inputJob, classListForm);
-  toggleButtonState(inputListProfile, buttonSaveProfile, classListForm);
-});
-
-buttonClosePopupEdit.addEventListener("click", () => {
-  // Вешаем обработчик на крестик
-  closePopup(popupEditProfile); // Убираем активный класс
-});
-
+// функция которая вносит изменение в профиль
 function handleProfileSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = inputName.value;
@@ -81,9 +86,41 @@ function handleProfileSubmit(evt) {
   closePopup(popupEditProfile);
 }
 
-for (let i = 0; i < initialCards.length; i++) {
-  renderCard(initialCards[i].link, initialCards[i].name);
-} //Отрисовываем 6 карточек из коробки Js
+// функция которая открывает попап с картинкой и ее названием
+function showPopupImage(name, link) {
+  openPopup(popupWithImage);
+  popupImgText.textContent = name;
+  popupImage.src = link;
+  popupImage.alt = name;
+}
+
+function handleCardFormSubmit(evt) {
+  //функция которая добавляет карточку на страницу с пользовательскими данными
+  evt.preventDefault();
+  const cardValue = {
+    name: nameCard.value,
+    link: linkCard.value,
+  };
+  new Card(cardValue, cardTemplate, showPopupImage).renderCard(
+    cardValue.link,
+    cardValue.name
+  );
+  closePopup(popupCards);
+}
+
+buttonOpenEditProfile.addEventListener("click", () => {
+  // Вешаем обработчик на кнопку открытия
+  openPopup(popupEditProfile);
+  inputName.value = profileName.textContent;
+  inputJob.value = profileJob.textContent;
+  hideInputError(popupEditProfile, inputName, classListForm);
+  hideInputError(popupEditProfile, inputJob, classListForm);
+});
+
+buttonClosePopupEdit.addEventListener("click", () => {
+  // Вешаем обработчик на крестик
+  closePopup(popupEditProfile); // Убираем активный класс
+});
 
 buttonAddCardPopup.addEventListener("click", () => {
   // Кнопка открытия попапа с добавлением новой карточки
@@ -92,48 +129,7 @@ buttonAddCardPopup.addEventListener("click", () => {
   nameCard.value = "";
   hideInputError(popupCards, linkCard, classListForm);
   hideInputError(popupCards, nameCard, classListForm);
-  toggleButtonState(inputListCards, buttonSaveCard, classListForm);
 });
-
-function renderCard(link, text) {
-  cardsContainer.prepend(createCard(link, text));
-}
-
-function createCard(link, text) {
-  const cardElement = cardTemplate.querySelector(".element").cloneNode(true);
-  const imageOnCard = cardElement.querySelector(".element__img");
-  imageOnCard.src = link;
-  cardElement.querySelector(".element__title").textContent = text;
-  imageOnCard.alt = text;
-  //Клонируем заготовку, вставляем нужные данные и добавляем в разметку
-  //Ниже вешаем обработчики для кнопок и картинок
-  cardElement
-    .querySelector(".element__button-like")
-    .addEventListener("click", function (evt) {
-      evt.target.classList.toggle("element__button-like_active");
-    }); //Для лайков добавляем или убираем класс, который меняет картинку
-  cardElement
-    .querySelector(".element__button-delete")
-    .addEventListener("click", function (evt) {
-      evt.target.closest(".element").remove();
-    }); //Эта кнопка удаляет Родителя
-  imageOnCard.addEventListener("click", function (evt) {
-    openPopup(popupWithImage);
-    popupImage.alt = evt.target.alt;
-    popupImage.src = evt.target.src;
-    popupImgText.textContent = evt.target.alt;
-  });
-
-  return cardElement;
-  //Отслеживаем на какую картинку нажали, открываем попап, и собираем данные с карточки где стояла картинка
-}
-
-function handleCardFormSubmit(evt) {
-  //функция которая добавляет карточку на страницу с пользовательскими данными
-  evt.preventDefault();
-  renderCard(linkCard.value, nameCard.value);
-  closePopup(popupCards); //ЧТО ТО СДЕЛАЛА
-}
 
 buttonClosePopupCards.addEventListener("click", () => {
   // Вешаем обработчик на крестик
@@ -144,6 +140,23 @@ buttonCloseImg.addEventListener("click", () => {
   // Вешаем обработчик на крестик
   closePopup(popupWithImage); // Убираем активный класс
 });
+
+//Отрисовываем 6 карточек из коробки Js
+for (let i = 0; i < initialCards.length; i++) {
+  new Card(initialCards[i], cardTemplate, showPopupImage).renderCard(
+    initialCards[i].link,
+    initialCards[i].name
+  );
+}
+
+const validFormPopupEditProfile = new FormValidator(
+  classListForm,
+  popupEditProfile
+);
+validFormPopupEditProfile.enableValidation();
+
+const validFormPopupCards = new FormValidator(classListForm, popupCards);
+validFormPopupCards.enableValidation();
 
 formProfile.addEventListener("submit", handleProfileSubmit);
 formCard.addEventListener("submit", handleCardFormSubmit);
