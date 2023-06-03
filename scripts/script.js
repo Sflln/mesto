@@ -1,3 +1,7 @@
+import { initialCards } from "./cards.js";
+import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
+
 const buttonOpenEditProfile = document.querySelector(".profile__button-edit"); // Кнопка открытия редактирования профиля
 const popupEditProfile = document.querySelector(".popup_type-edit");
 const buttonClosePopupEdit = popupEditProfile.querySelector(".popup__button-close");
@@ -24,10 +28,6 @@ const popupElements = document.querySelectorAll(".popup");
 const buttonSaveProfile = popupEditProfile.querySelector(".popup__button-save");
 const buttonSaveCard = popupCards.querySelector(".popup__button-save");
 
-import { initialCards } from "./cards.js";
-import { Card } from "./Card.js";
-import { FormValidator } from "./FormValidator.js";
-
 const classListForm = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -36,18 +36,6 @@ const classListForm = {
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__input-error_active",
 };
-
-// функция которая очищает поля от ошибок и делает кнопку не активной
-function hideInputError(formElement, inputElement, parametrs) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove(parametrs.inputErrorClass);
-  errorElement.classList.remove(parametrs.errorClass);
-  errorElement.textContent = "";
-  const buttonElement = formElement.querySelector(
-    parametrs.submitButtonSelector
-  );
-  buttonElement.classList.add(parametrs.inactiveButtonClass);
-}
 
 //Функция открытия попапа с аргументом
 function openPopup(popup) {
@@ -94,6 +82,11 @@ function showPopupImage(name, link) {
   popupImage.alt = name;
 }
 
+// функция которая добавляет карточку в контейнер
+function renderCard(card){
+  document.querySelector(".elements").prepend(card);
+}
+
 function handleCardFormSubmit(evt) {
   //функция которая добавляет карточку на страницу с пользовательскими данными
   evt.preventDefault();
@@ -101,10 +94,7 @@ function handleCardFormSubmit(evt) {
     name: nameCard.value,
     link: linkCard.value,
   };
-  new Card(cardValue, cardTemplate, showPopupImage).renderCard(
-    cardValue.link,
-    cardValue.name
-  );
+  renderCard(new Card(cardValue, '#card', showPopupImage).createCard());
   closePopup(popupCards);
 }
 
@@ -113,8 +103,9 @@ buttonOpenEditProfile.addEventListener("click", () => {
   openPopup(popupEditProfile);
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
-  hideInputError(popupEditProfile, inputName, classListForm);
-  hideInputError(popupEditProfile, inputJob, classListForm);
+  new FormValidator(classListForm, popupEditProfile)._hideInputError(popupEditProfile, inputName);
+  new FormValidator(classListForm, popupEditProfile)._hideInputError(popupEditProfile, inputJob);
+  new FormValidator(classListForm, popupEditProfile).toggleButtonState();
 });
 
 buttonClosePopupEdit.addEventListener("click", () => {
@@ -127,8 +118,9 @@ buttonAddCardPopup.addEventListener("click", () => {
   openPopup(popupCards);
   linkCard.value = "";
   nameCard.value = "";
-  hideInputError(popupCards, linkCard, classListForm);
-  hideInputError(popupCards, nameCard, classListForm);
+  new FormValidator(classListForm, popupCards)._hideInputError(popupCards, linkCard);
+  new FormValidator(classListForm, popupCards)._hideInputError(popupCards, nameCard);
+  new FormValidator(classListForm, popupCards).toggleButtonState();
 });
 
 buttonClosePopupCards.addEventListener("click", () => {
@@ -143,10 +135,7 @@ buttonCloseImg.addEventListener("click", () => {
 
 //Отрисовываем 6 карточек из коробки Js
 for (let i = 0; i < initialCards.length; i++) {
-  new Card(initialCards[i], cardTemplate, showPopupImage).renderCard(
-    initialCards[i].link,
-    initialCards[i].name
-  );
+  renderCard(new Card(initialCards[i], '#card', showPopupImage).createCard());
 }
 
 const validFormPopupEditProfile = new FormValidator(
