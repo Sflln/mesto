@@ -103,8 +103,8 @@ buttonOpenEditProfile.addEventListener("click", () => {
   openPopup(popupEditProfile);
   inputName.value = profileName.textContent;
   inputJob.value = profileJob.textContent;
-  new FormValidator(classListForm, popupEditProfile)._hideInputError(popupEditProfile, inputName);
-  new FormValidator(classListForm, popupEditProfile)._hideInputError(popupEditProfile, inputJob);
+  validFormPopupEditProfile.hideInputError(popupEditProfile, inputName);
+  validFormPopupEditProfile.hideInputError(popupEditProfile, inputJob);
   new FormValidator(classListForm, popupEditProfile).toggleButtonState();
 });
 
@@ -118,8 +118,8 @@ buttonAddCardPopup.addEventListener("click", () => {
   openPopup(popupCards);
   linkCard.value = "";
   nameCard.value = "";
-  new FormValidator(classListForm, popupCards)._hideInputError(popupCards, linkCard);
-  new FormValidator(classListForm, popupCards)._hideInputError(popupCards, nameCard);
+  validFormPopupCards.hideInputError(popupCards, linkCard);
+  validFormPopupCards.hideInputError(popupCards, nameCard);
   new FormValidator(classListForm, popupCards).toggleButtonState();
 });
 

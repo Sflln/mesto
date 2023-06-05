@@ -7,16 +7,12 @@ export class Card {
   }
 
   likeCard(){
-    this._cardElement
-    .querySelector(".element__button-like")
-    .addEventListener("click", function (evt) {
-      evt.target.classList.toggle("element__button-like_active");
-    });
+    this._cardElement.querySelector(".element__button-like").classList.toggle("element__button-like_active");
   }
 
   deleteCard(){
     this._cardElement.remove();
-    this._cardElement = '';
+    this._cardElement = null;
   }
 
   createCard() {
@@ -26,8 +22,6 @@ export class Card {
       .querySelector('.element')
       .cloneNode(true);
 
-    this.likeCard();
-
     const imageOnCard = this._cardElement.querySelector(".element__img");
     imageOnCard.src = this._link;
     imageOnCard.alt = this._name;
@@ -35,6 +29,12 @@ export class Card {
 
     this._cardElement.querySelector('.element__button-delete').addEventListener('click', () => {
       this.deleteCard();
+    });
+
+    this._cardElement
+    .querySelector(".element__button-like")
+    .addEventListener('click', () => {
+      this.likeCard();
     });
     
     this._cardElement

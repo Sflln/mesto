@@ -46,7 +46,7 @@ export class FormValidator {
   }
 
   // Функция, которая удаляет класс с ошибкой
-  _hideInputError(formElement, inputElement) {
+  hideInputError(formElement, inputElement) {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove(this._inputErrorClass);
     errorElement.classList.remove(this._errorClass);
@@ -63,15 +63,14 @@ export class FormValidator {
       );
     } else {
       // Если проходит, скроем
-      this._hideInputError(formElement, inputElement);
+      this.hideInputError(formElement, inputElement);
     }
   }
 
   _setEventListeners() {
     // Находим все поля внутри формы,
     // сделаем из них массив методом Array.from
-    const buttonElement = this._form.querySelector(this._submitBtnSelector);
-    this.toggleButtonState(buttonElement);
+    this.toggleButtonState();
     // Обойдём все элементы полученной коллекции
     this._inputList.forEach((inputElement) => {
       // каждому полю добавим обработчик события input
@@ -79,7 +78,7 @@ export class FormValidator {
         // Внутри колбэка вызовем isValid,
         // передав ей форму и проверяемый элемент
         this._isValid(this._form, inputElement);
-        this.toggleButtonState(buttonElement);
+        this.toggleButtonState();
       });
     });
   }
