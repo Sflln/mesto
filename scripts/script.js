@@ -105,7 +105,7 @@ buttonOpenEditProfile.addEventListener("click", () => {
   inputJob.value = profileJob.textContent;
   validFormPopupEditProfile.hideInputError(popupEditProfile, inputName);
   validFormPopupEditProfile.hideInputError(popupEditProfile, inputJob);
-  new FormValidator(classListForm, popupEditProfile).toggleButtonState();
+  validFormPopupEditProfile.toggleButtonState();
 });
 
 buttonClosePopupEdit.addEventListener("click", () => {
@@ -120,7 +120,7 @@ buttonAddCardPopup.addEventListener("click", () => {
   nameCard.value = "";
   validFormPopupCards.hideInputError(popupCards, linkCard);
   validFormPopupCards.hideInputError(popupCards, nameCard);
-  new FormValidator(classListForm, popupCards).toggleButtonState();
+  validFormPopupCards.toggleButtonState();
 });
 
 buttonClosePopupCards.addEventListener("click", () => {
