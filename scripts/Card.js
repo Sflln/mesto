@@ -1,9 +1,9 @@
 export class Card {
-  constructor(data, cardTemplate, showFunction) {
+  constructor(data, cardTemplate, handleCardClick) {
     this._cardTemplate = cardTemplate;
     this._name = data.name;
     this._link = data.link;
-    this._showPopup = showFunction;
+    this._showPopup = handleCardClick;
   }
 
   likeCard(){
