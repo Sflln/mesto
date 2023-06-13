@@ -1,6 +1,5 @@
 import { Popup } from "./Popup.js";
 
-
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, submitForm) {
     super(popupSelector);
@@ -14,18 +13,16 @@ export default class PopupWithForm extends Popup {
     this._popupForm.reset();
   }
 
-  // метод, который собирает данные всех полей формы
   _getInputValues() {
-    this._formValues = {};
+    this._formData = {};
 
     this._inputList.forEach((input) => {
-      this._formValues[input.name] = input.value;
+      this._formData[input.name] = input.value;
     });
 
-    return this._formValues;
+    return this._formData;
   }
 
-  // дополнительно добавляем обработчик сабмита формы
   setEventListeners() {
     super.setEventListeners();
     this._popupForm.addEventListener("submit", (evt) => {
