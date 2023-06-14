@@ -14,6 +14,10 @@ export class FormValidator {
       this._submitBtnSelector)
   }
 
+  resetInputErrors() {
+    this._inputList.forEach(input => this._hideInputError(input));
+  }
+
   _hasInvalidInput() {
     // проходим по этому массиву методом some
     return this._inputList.some((inputElement) => {
@@ -37,8 +41,8 @@ export class FormValidator {
     }
   }
 
-  _showInputError(formElement, inputElement, errorMessage) {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  _showInputError(inputElement, errorMessage) {
+    const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(this._inputErrorClass);
     errorElement.textContent = errorMessage;
     errorElement.title = errorMessage;
@@ -46,24 +50,23 @@ export class FormValidator {
   }
 
   // Функция, которая удаляет класс с ошибкой
-  hideInputError(formElement, inputElement) {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  _hideInputError(inputElement) {
+    const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove(this._inputErrorClass);
     errorElement.classList.remove(this._errorClass);
     errorElement.textContent = "";
   }
 
-  _isValid(formElement, inputElement) {
+  _isValid(inputElement) {
     if (!inputElement.validity.valid) {
       // Если поле не проходит валидацию, покажем ошибку
       this._showInputError(
-        formElement,
         inputElement,
         inputElement.validationMessage
       );
     } else {
       // Если проходит, скроем
-      this.hideInputError(formElement, inputElement);
+      this._hideInputError(inputElement);
     }
   }
 
@@ -77,7 +80,7 @@ export class FormValidator {
       inputElement.addEventListener("input", () => {
         // Внутри колбэка вызовем isValid,
         // передав ей форму и проверяемый элемент
-        this._isValid(this._form, inputElement);
+        this._isValid(inputElement);
         this.toggleButtonState();
       });
     });

@@ -4,10 +4,11 @@ export class Card {
     this._name = data.name;
     this._link = data.link;
     this._showPopup = handleCardClick;
+    
   }
 
   likeCard(){
-    this._cardElement.querySelector(".element__button-like").classList.toggle("element__button-like_active");
+    this._buttonLike.classList.toggle("element__button-like_active");
   }
 
   deleteCard(){
@@ -21,24 +22,23 @@ export class Card {
       .content
       .querySelector('.element')
       .cloneNode(true);
+      this._buttonLike = this._cardElement.querySelector(".element__button-like");
+    this._imageOnCard = this._cardElement.querySelector(".element__img");
 
-    const imageOnCard = this._cardElement.querySelector(".element__img");
-    imageOnCard.src = this._link;
-    imageOnCard.alt = this._name;
+    this._imageOnCard.src = this._link;
+    this._imageOnCard.alt = this._name;
     this._cardElement.querySelector(".element__title").textContent = this._name;
 
     this._cardElement.querySelector('.element__button-delete').addEventListener('click', () => {
       this.deleteCard();
     });
 
-    this._cardElement
-    .querySelector(".element__button-like")
+    this._buttonLike
     .addEventListener('click', () => {
       this.likeCard();
     });
     
-    this._cardElement
-    .querySelector(".element__img")
+    this._imageOnCard
     .addEventListener("click", () => {
       this._showPopup(this._name, this._link);
     });
