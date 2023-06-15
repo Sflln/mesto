@@ -27,7 +27,6 @@ export class Card {
     this._cardElement.querySelector(".element__likes").textContent =
       likes.length;
     this._like = likes;
-    console.log(this._isLike());
     if (this._isLike()) {
       this._buttonLike.classList.add("element__button-like_active");
     } else {

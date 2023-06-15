@@ -6,7 +6,7 @@ import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
-import ProofPopup from "../components/proofPopup.js";
+import ProofPopup from "../components/ProofPopup.js";
 import Api from "../components/Api.js";
 
 const buttonOpenEditProfile = document.querySelector(".profile__button-edit"); // Кнопка открытия редактирования профиля
@@ -32,6 +32,7 @@ function handleAvatarSubmit(inputValues) {
     .changedAvatar(inputValues)
     .then((res) => {
       profileInformation.setUserInfo(res);
+      popupAvatar.close();
     })
     .catch((err) => {
       console.log(err);
@@ -94,6 +95,7 @@ function handleCardFormSubmits(inputValues) {
     .postNewCard(inputValues)
     .then((data) => {
       cards.addItem(makeCard(data, data.owner._id));
+      popupAddCard.close();
     })
     .catch((err) => {
       console.log(err);
@@ -131,6 +133,7 @@ function handleProfileSubmit(inputValues) {
     .saveUserChanges(inputValues)
     .then((inputValues) => {
       profileInformation.setUserInfo(inputValues);
+      popupEditProfile.close();
     })
     .catch((err) => {
       console.log(err);
@@ -208,7 +211,6 @@ const apiUser = new Api({
 
 Promise.all([apiUser.getUserData(), apiUser.getInitialCards()])
   .then((values) => {
-    console.log(values);
     profileInformation.setUserInfo(values[0]);
     cards.renderItems(values[1], values[0]._id);
   })
